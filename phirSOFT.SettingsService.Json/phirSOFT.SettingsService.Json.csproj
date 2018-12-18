@@ -6,14 +6,17 @@
     <Version>0.0.1</Version>
     <PackageProjectUrl>https://github.com/phirSOFT/SettingsService</PackageProjectUrl>
     <PackageLicenseUrl>https://github.com/phirSOFT/SettingsService/blob/master/LICENSE</PackageLicenseUrl>
+    <Authors>phirSOFT</Authors>
+    <Product>phirSOFT Json SettingsService</Product>
+    <RepositoryUrl>https://github.com/phirSOFT/SettingsService</RepositoryUrl>
+    <RepositoryType>git</RepositoryType>
+    <PackageReleaseNotes>Initial Release</PackageReleaseNotes>
+    <Description>phirSOFT SettingsService that stores the settings as JSON.</Description>
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="Newtonsoft.Json" Version="10.0.3" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <ProjectReference Include="..\phirSOFT.SettingsService\phirSOFT.SettingsService.csproj" />
+    <PackageReference Include="Newtonsoft.Json" Version="12.0.1" />
+    <PackageReference Include="phirSOFT.SettingsService" Version="0.1.36" />
   </ItemGroup>
 
 </Project>
