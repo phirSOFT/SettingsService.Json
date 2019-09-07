@@ -126,7 +126,7 @@ namespace phirSOFT.SettingsService.Json
         private static async Task ReadDictionary<T>(
             JsonReader reader,
             IDictionary<string, T> dictionary,
-            Func<string, Type> typeResover)
+            Func<string, Type> typeResolver)
         {
             while (await reader.ReadAsync().ConfigureAwait(false))
             {
@@ -136,14 +136,14 @@ namespace phirSOFT.SettingsService.Json
                 if (reader.TokenType != JsonToken.PropertyName)
                     continue;
 
-                var key = reader.Value as string;
+                var key = (string) reader.Value;
 
                 if (!await reader.ReadAsync().ConfigureAwait(false))
                     throw new JsonSerializationException();
 
                 JToken value = await JToken.ReadFromAsync(reader);
 
-                dictionary.Add(key, (T) value.ToObject(typeResover(key)));
+                dictionary.Add(key, (T) value.ToObject(typeResolver(key)));
             }
         }
 
@@ -202,7 +202,7 @@ namespace phirSOFT.SettingsService.Json
             JsonSerializer serializer,
             IDictionary<string, T> dictionary,
             string key,
-            Func<string, Type> typeResover)
+            Func<string, Type> typeResolver)
         {
             await writer.WritePropertyNameAsync(key).ConfigureAwait(false);
             await writer.WriteStartObjectAsync().ConfigureAwait(false);
@@ -210,7 +210,7 @@ namespace phirSOFT.SettingsService.Json
             foreach (KeyValuePair<string, T> value in dictionary)
             {
                 await writer.WritePropertyNameAsync(value.Key);
-                serializer.Serialize(writer, value.Value, typeResover(value.Key));
+                serializer.Serialize(writer, value.Value, typeResolver(value.Key));
             }
 
             writer.WriteEndObject();
