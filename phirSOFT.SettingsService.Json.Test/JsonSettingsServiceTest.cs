@@ -22,7 +22,7 @@ namespace phirSOFT.SettingsService.Json.Test
             var service2 = await JsonSettingsService.Create(file);
             Assert.AreEqual(0, await service2.GetSettingAsync<int>("integer"));
             Assert.AreEqual("string", await service2.GetSettingAsync<string>("string"));
-            Assert.True(await service2.IsRegisterdAsync("object"));
+            Assert.True(await service2.IsRegisteredAsync("object"));
         }
     }
 }
