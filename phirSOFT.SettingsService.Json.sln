@@ -5,11 +5,12 @@ VisualStudioVersion = 16.0.29215.179
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "phirSOFT.SettingsService.Json", "phirSOFT.SettingsService.Json\phirSOFT.SettingsService.Json.csproj", "{BAF212F6-3890-42B1-A2F1-F67CFFA85528}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "phirSOFT.SettingsService.Json.Test", "phirSOFT.SettingsService.Json.Test\phirSOFT.SettingsService.Json.Test.csproj", "{D3A29052-D926-4275-9BBC-A9521877101B}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "phirSOFT.SettingsService.Json.Test", "phirSOFT.SettingsService.Json.Test\phirSOFT.SettingsService.Json.Test.csproj", "{D3A29052-D926-4275-9BBC-A9521877101B}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Ci-Pipeline", "Ci-Pipeline", "{A9E87528-71DB-4E37-9359-ED2149D33DE1}"
 	ProjectSection(SolutionItems) = preProject
 		azure-pipeline.yml = azure-pipeline.yml
+		gitversion.yml = gitversion.yml
 		global.json = global.json
 	EndProjectSection
 EndProject
