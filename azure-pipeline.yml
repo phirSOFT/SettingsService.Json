@@ -38,6 +38,14 @@ steps:
   inputs:
     command: test
 
+- powershell: Invoke-WebRequest -Uri 'https://report.ci/upload.py' -OutFile upload.py
+
+- task: PythonScript@0
+  displayName: Upload Test Results
+  inputs:
+    scriptPath: upload.py
+    arguments: "--include='*.xml' --framework=nunit"
+
 - task: CopyFiles@2
   displayName: 'Copy Files to: $(build.artifactstagingdirectory)'
   inputs:
