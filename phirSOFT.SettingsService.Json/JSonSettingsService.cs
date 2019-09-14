@@ -20,7 +20,10 @@ namespace phirSOFT.SettingsService.Json
         private readonly IDictionary<string, Type> _types;
 
         private readonly IDictionary<string, object> _values;
-
+        /// <summary>
+        /// Initializes a new instance of the <see cref="JsonSettingsService"/> class.
+        /// </summary>
+        /// <param name="filename">the filename.</param>
         private JsonSettingsService(string filename)
         {
             _filename = filename;
@@ -128,13 +131,13 @@ namespace phirSOFT.SettingsService.Json
                     switch ((string) reader.Value)
                     {
                         case "types":
-                            await ReadDictionary(reader, _types, key => typeof(Type));
+                            await ReadDictionary(reader, _types, key => typeof(Type)).ConfigureAwait(false);
                             break;
                         case "values":
-                            await ReadDictionary(reader, _values, key => _types[key]);
+                            await ReadDictionary(reader, _values, key => _types[key]).ConfigureAwait(false);
                             break;
                         case "defaults":
-                            await ReadDictionary(reader, _defaultValues, key => _types[key]);
+                            await ReadDictionary(reader, _defaultValues, key => _types[key]).ConfigureAwait(false);
                             break;
                         default:
                             throw new JsonSerializationException($"Unknown entry : {(string) reader.Value}");
@@ -161,7 +164,7 @@ namespace phirSOFT.SettingsService.Json
                 if (!await reader.ReadAsync().ConfigureAwait(false))
                     throw new JsonSerializationException();
 
-                JToken value = await JToken.ReadFromAsync(reader);
+                JToken value = await JToken.ReadFromAsync(reader).ConfigureAwait(false);
 
                 dictionary.Add(key, (T) value.ToObject(typeResolver(key)));
             }
@@ -174,6 +177,7 @@ namespace phirSOFT.SettingsService.Json
             _types.Add(key, type);
         }
 
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Design", "CA1031:Do not catch general exception types", Justification = "We rethrow the exception, by returning a failed tas.")]
         private static Task RunSynchronous(Action action)
         {
             try
@@ -194,7 +198,10 @@ namespace phirSOFT.SettingsService.Json
             {
                 return Task.FromResult(action.Invoke());
             }
+#pragma warning disable CA1031 // Do not catch general exception types
+
             catch (Exception e)
+#pragma warning restore CA1031 // Do not catch general exception types
             {
                 return Task.FromException<T>(e);
             }
@@ -203,9 +210,9 @@ namespace phirSOFT.SettingsService.Json
         private void SetSettingsInternal(string key, object value, Type type)
         {
             if (!value.GetType().GetTypeInfo().IsAssignableFrom(type.GetTypeInfo()))
-                throw new ArgumentException();
+                throw new ArgumentException($"Value of type {value.GetType().FullName} did not match expected type {type.FullName}. ",nameof(value));
             if (type != _types[key])
-                throw new ArgumentException();
+                throw new ArgumentException($"{type.FullName} was different, than stored property setting type ({_types[key].FullName})");
 
             _values[key] = value;
         }
@@ -229,7 +236,7 @@ namespace phirSOFT.SettingsService.Json
 
             foreach (KeyValuePair<string, T> value in dictionary)
             {
-                await writer.WritePropertyNameAsync(value.Key);
+                await writer.WritePropertyNameAsync(value.Key).ConfigureAwait(false);
                 serializer.Serialize(writer, value.Value, typeResolver(value.Key));
             }
 
