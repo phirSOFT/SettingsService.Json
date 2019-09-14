@@ -18,8 +18,10 @@ variables:
   Release.Publish: $[and(ne(variables['Build.Reason'], 'PullRequest'), or(startsWith(variables['Build.SourceBranch'], 'refs/heads/release/'), startsWith(variables['Build.SourceBranch'], 'refs/heads/hotfix/'), eq(variables['Build.SourceBranch'], 'refs/heads/master')))]
 
 steps:
-- task: gittools.gitversion.gitversion-task.GitVersion@5
-  displayName: GitVersion'
+- task: GitVersion@5
+  inputs:
+    runtime: 'core'
+    configFilePath: 'gitversion.yml'
 - task: UseDotNet@2
   displayName: 'Use .Net Core sdk '
   inputs:
