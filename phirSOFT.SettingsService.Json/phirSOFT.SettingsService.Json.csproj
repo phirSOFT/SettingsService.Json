@@ -8,6 +8,9 @@
     <Description>Provides a implementation for a json formatted settings file</Description>
     <PackageLicenseExpression>MIT</PackageLicenseExpression>
     <UseFullSemVerForNuget>true</UseFullSemVerForNuget>
+    <PublishRepositoryUrl>true</PublishRepositoryUrl>
+    <IncludeSymbols>true</IncludeSymbols>
+    <SymbolPackageFormat>snupkg</SymbolPackageFormat>
   </PropertyGroup>
 
   <PropertyGroup>
