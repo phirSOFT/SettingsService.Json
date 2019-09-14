@@ -6,10 +6,14 @@ using System.Reflection;
 using System.Threading.Tasks;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
+using phirSOFT.SettingsService.Abstractions;
 
 namespace phirSOFT.SettingsService.Json
 {
-    public class JsonSettingsService : CachedSettingsService
+    /// <summary>
+    /// Implements a <see cref="ISettingsService"/> for settings stored in json file.
+    /// </summary>
+    public sealed class JsonSettingsService : CachedSettingsService
     {
         private readonly IDictionary<string, object> _defaultValues;
         private readonly string _filename;
@@ -25,27 +29,40 @@ namespace phirSOFT.SettingsService.Json
             _defaultValues = new ConcurrentDictionary<string, object>();
         }
 
+        /// <inheritdoc />
         protected override bool SupportConcurrentRegister => false;
+
+        /// <inheritdoc />
         protected override bool SupportConcurrentUnregister => true;
+
+        /// <inheritdoc />
         protected override bool SupportConcurrentUpdate => false;
 
-        public static async Task<JsonSettingsService> Create(string filename)
+        /// <summary>
+        /// Creates a new <see cref="JsonSettingsService"/> asynchronously
+        /// </summary>
+        /// <param name="filename">the name of the settings file to open or create.</param>
+        /// <returns>A <see cref="Task"/>, that represents the asynchronous create operation and yields <see cref="JsonSettingsService"/></returns>
+        public static async Task<JsonSettingsService> CreateAsync(string filename)
         {
             var service = new JsonSettingsService(filename);
             await service.Initialize().ConfigureAwait(false);
             return service;
         }
 
+        /// <inheritdoc />
         protected override Task<object> GetSettingInternalAsync(string key, Type type)
         {
             return RunSynchronous(() => GetSettingInternal(key, type));
         }
 
+        /// <inheritdoc />
         protected override Task<bool> IsRegisteredInternalAsync(string key)
         {
             return Task.FromResult(_values.ContainsKey(key));
         }
 
+        /// <inheritdoc />
         protected override Task RegisterSettingInternalAsync(
             string key,
             object defaultValue,
@@ -55,11 +72,13 @@ namespace phirSOFT.SettingsService.Json
             return RunSynchronous(() => RegisterSettingsInternal(key, defaultValue, initialValue, type));
         }
 
+        /// <inheritdoc />
         protected override Task SetSettingInternalAsync(string key, object value, Type type)
         {
             return RunSynchronous(() => SetSettingsInternal(key, value, type));
         }
 
+        /// <inheritdoc />
         protected override async Task StoreInternalAsync()
         {
             var serializer = new JsonSerializer();
@@ -79,6 +98,7 @@ namespace phirSOFT.SettingsService.Json
             }
         }
 
+        /// <inheritdoc />
         protected override Task UnregisterSettingInternalAsync(string key)
         {
             return RunSynchronous(() => UnregisterSettingInternal(key));
