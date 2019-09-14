@@ -42,6 +42,7 @@ steps:
 
 - task: PythonScript@0
   displayName: Upload Test Results
+  continueOnError: true
   inputs:
     scriptPath: upload.py
     arguments: "--include='*.xml' --framework=nunit"
