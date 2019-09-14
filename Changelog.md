@@ -10,7 +10,7 @@ the major version in sync with
 [phirSOFT/SettingsService](https://github.com/phirSOFT/SettingsService) to avoid
 confusion.
 
-## [0.2.0] - unreleased
+## [0.2.2] - 2019-09-14
 
 ### Changed
 
