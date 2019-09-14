@@ -4,6 +4,7 @@
 ![Azure DevOps coverage](https://img.shields.io/azure-devops/coverage/phirSOFT/phirSOFT.SettingsService/16)
 ![Nuget](https://img.shields.io/nuget/v/phirSOFT.SettingsService.Json)
 [![License](https://img.shields.io/github/license/phirSOFT/SettingsService.Json)](https://github.com/phirSOFT/SettingsService.Json/blob/master/LICENSE)
+
 This is a Settings backend for [phirSOFT/SettingsService](https://github.com/phirSOFT/SettingsService).
 
 ## Nuget ![Nuget (with prereleases)](https://img.shields.io/nuget/vpre/phirSOFT.SettingsService.Json)
