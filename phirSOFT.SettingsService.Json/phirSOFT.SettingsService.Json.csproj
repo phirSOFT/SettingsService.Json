@@ -12,6 +12,7 @@
     <IncludeSymbols>true</IncludeSymbols>
     <SymbolPackageFormat>snupkg</SymbolPackageFormat>
     <GenerateDocumentationFile>true</GenerateDocumentationFile>
+    <PackageIconUrl>https://avatars0.githubusercontent.com/u/29253317?s=400&amp;u=9d7725ee419b543b3059f2d2f5d7441ee0c04ed3&amp;v=4</PackageIconUrl>
   </PropertyGroup>
 
   <PropertyGroup>
