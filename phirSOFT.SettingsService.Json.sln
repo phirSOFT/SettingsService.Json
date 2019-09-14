@@ -10,6 +10,7 @@ EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Ci-Pipeline", "Ci-Pipeline", "{A9E87528-71DB-4E37-9359-ED2149D33DE1}"
 	ProjectSection(SolutionItems) = preProject
 		azure-pipeline.yml = azure-pipeline.yml
+		Changelog.md = Changelog.md
 		gitversion.yml = gitversion.yml
 		global.json = global.json
 		ReleaseNotes.md = ReleaseNotes.md
