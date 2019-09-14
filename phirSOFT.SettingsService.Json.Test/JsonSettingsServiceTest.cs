@@ -10,8 +10,8 @@ namespace phirSOFT.SettingsService.Json.Test
         [Test]
         public async Task TestSerialisation()
         {
-            var file = Path.GetTempFileName();
-            var service = await JsonSettingsService.Create(file);
+            string file = Path.GetTempFileName();
+            JsonSettingsService service = await JsonSettingsService.CreateAsync(file);
 
             await service.RegisterSettingAsync("integer", 0);
             await service.RegisterSettingAsync("string", "string");
@@ -19,10 +19,10 @@ namespace phirSOFT.SettingsService.Json.Test
 
             await service.StoreAsync();
 
-            var service2 = await JsonSettingsService.Create(file);
+            JsonSettingsService service2 = await JsonSettingsService.CreateAsync(file);
             Assert.AreEqual(0, await service2.GetSettingAsync<int>("integer"));
             Assert.AreEqual("string", await service2.GetSettingAsync<string>("string"));
-            Assert.True(await service2.IsRegisterdAsync("object"));
+            Assert.True(await service2.IsRegisteredAsync("object"));
         }
     }
 }
